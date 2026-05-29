@@ -1,0 +1,2460 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "SMANDA Backend RESTful API",
+    "description": "API Spec for SMANDA School Backend RESTful API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api"
+    }
+  ],
+  "paths": {
+    "/subjects": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Subject API"],
+        "summary": "List all Subjects",
+        "description": "List all Subjects",
+        "responses": {
+          "200": {
+            "description": "Success get all subjects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Subject" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subject": {
+      "post": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Subject API"],
+        "summary": "Create new Subject",
+        "description": "Create new Subject",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateOrUpdateSubject" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success create subject",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Subject" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subject/{subjectId}": {
+      "put": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Subject API"],
+        "summary": "Update Subject by Id",
+        "description": "Update Subject by Id",
+        "parameters": [
+          {
+            "name": "subjectId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateOrUpdateSubject" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success update subject",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Subject" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Subject API"],
+        "summary": "Delete Subject by Id",
+        "description": "Delete Subject by Id",
+        "parameters": [
+          {
+            "name": "subjectId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success delete subject",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/teachers": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Teacher API"],
+        "summary": "List all Teachers",
+        "description": "List all Teachers",
+        "responses": {
+          "200": {
+            "description": "Success get all teachers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Teacher" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teacher": {
+      "post": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Teacher API"],
+        "summary": "Create new Teacher",
+        "description": "Create new Teacher",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateTeacher" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success create teacher",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Teacher" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teacher/id/{teacherId}": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Teacher API"],
+        "summary": "Get Teacher by Id",
+        "description": "Get Teacher by Id",
+        "parameters": [
+          {
+            "name": "teacherId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get teacher",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Teacher" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teacher/email/{email}": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Teacher API"],
+        "summary": "Get Teacher by Email (Account)",
+        "description": "Get Teacher account by email",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get teacher account",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Teacher" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teachersName/{teacherName}": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Teacher API"],
+        "summary": "Find Teachers by Name",
+        "description": "Find Teachers by Name",
+        "parameters": [
+          {
+            "name": "teacherName",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get teachers by name",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Teacher" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teacher/{teacherId}": {
+      "put": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Teacher API"],
+        "summary": "Update Teacher by Id",
+        "description": "Update Teacher by Id",
+        "parameters": [
+          {
+            "name": "teacherId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateTeacher" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success update teacher",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Teacher" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Teacher API"],
+        "summary": "Delete Teacher by Id",
+        "description": "Delete Teacher by Id",
+        "parameters": [
+          {
+            "name": "teacherId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success delete teacher",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teacher/{teacherId}/photo": {
+      "post": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Teacher API"],
+        "summary": "Upload Teacher Photo",
+        "description": "Upload photo for a teacher",
+        "parameters": [
+          {
+            "name": "teacherId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "photo": { "type": "string", "format": "binary" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success upload teacher photo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Teacher" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/classes": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Class API"],
+        "summary": "List all Classes",
+        "description": "List all Classes",
+        "responses": {
+          "200": {
+            "description": "Success get all classes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Class" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/class-with-schedules": {
+      "post": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Class API"],
+        "summary": "Create Class with Schedules",
+        "description": "Create a new class along with its schedules",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ClassWithScheduleRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success create class with schedules",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Class" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/class/{classId}": {
+      "put": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Class API"],
+        "summary": "Update Class by Id",
+        "description": "Update Class by Id",
+        "parameters": [
+          {
+            "name": "classId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateClass" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success update class",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Class" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Class API"],
+        "summary": "Delete Class by Id",
+        "description": "Delete Class by Id",
+        "parameters": [
+          {
+            "name": "classId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success delete class",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/student/id/{studentId}": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Student API"],
+        "summary": "Get Student by Id",
+        "description": "Get Student by Id",
+        "parameters": [
+          {
+            "name": "studentId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get student",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Student" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/student/email/{email}": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Student API"],
+        "summary": "Get Student Account by Email",
+        "description": "Get Student account by email",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get student account",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Student" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/student/admin/{email}": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Student API"],
+        "summary": "Get Admin Student by Email",
+        "description": "Get admin student by email",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get admin student",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Student" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/students/unregister": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Student API"],
+        "summary": "Find Unregistered Students",
+        "description": "Find all unregistered students",
+        "responses": {
+          "200": {
+            "description": "Success get unregistered students",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Student" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Student API"],
+        "summary": "Delete all Unregistered Students",
+        "description": "Delete all unregistered students",
+        "responses": {
+          "200": {
+            "description": "Success delete unregistered students",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/students/findname/{studentName}": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Student API"],
+        "summary": "Find Students by Name",
+        "description": "Find students by name",
+        "parameters": [
+          {
+            "name": "studentName",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get students by name",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Student" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/students/findclass/{studentClass}": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Student API"],
+        "summary": "Find Students by Class",
+        "description": "Find students by class name",
+        "parameters": [
+          {
+            "name": "studentClass",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get students by class",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Student" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/students/findnisn/{studentNisn}": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Student API"],
+        "summary": "Find Student by NISN",
+        "description": "Find student by NISN",
+        "parameters": [
+          {
+            "name": "studentNisn",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get student by NISN",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Student" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/student": {
+      "post": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Student API"],
+        "summary": "Create new Student",
+        "description": "Create new Student",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateStudent" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success create student",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Student" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/student/{studentId}": {
+      "put": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Student API"],
+        "summary": "Update Student by Id",
+        "description": "Update Student by Id",
+        "parameters": [
+          {
+            "name": "studentId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateStudent" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success update student",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Student" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Student API"],
+        "summary": "Delete Student by Id",
+        "description": "Delete Student by Id",
+        "parameters": [
+          {
+            "name": "studentId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success delete student",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/student/{studentId}/register": {
+      "put": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Student API"],
+        "summary": "Update Student Register Status",
+        "description": "Update register status of a student",
+        "parameters": [
+          {
+            "name": "studentId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success update student register status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Student" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/student/{studentId}/photo": {
+      "post": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Student API"],
+        "summary": "Upload Student Photo",
+        "description": "Upload photo for a student",
+        "parameters": [
+          {
+            "name": "studentId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "photo": { "type": "string", "format": "binary" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success upload student photo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Student" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/students/delete-by-class/{classId}": {
+      "delete": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Student API"],
+        "summary": "Delete Students by Class Id",
+        "description": "Delete all students in a class",
+        "parameters": [
+          {
+            "name": "classId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success delete students by class",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/extracurriculars": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Extracurricular API"],
+        "summary": "List all Extracurriculars",
+        "description": "List all Extracurriculars",
+        "responses": {
+          "200": {
+            "description": "Success get all extracurriculars",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Extracurricular" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/extracurricular": {
+      "post": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Extracurricular API"],
+        "summary": "Create new Extracurricular",
+        "description": "Create new Extracurricular",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateExtracurricular" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success create extracurricular",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Extracurricular" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/extracurricular/{ekskulId}": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Extracurricular API"],
+        "summary": "Get Extracurricular by Id",
+        "description": "Get Extracurricular by Id",
+        "parameters": [
+          {
+            "name": "ekskulId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get extracurricular",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Extracurricular" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Extracurricular API"],
+        "summary": "Upload Extracurricular Photo",
+        "description": "Upload photo for an extracurricular",
+        "parameters": [
+          {
+            "name": "ekskulId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "photo": { "type": "string", "format": "binary" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success upload extracurricular photo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Extracurricular" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/extracurricular/{extracurricularId}": {
+      "put": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Extracurricular API"],
+        "summary": "Update Extracurricular by Id",
+        "description": "Update Extracurricular by Id",
+        "parameters": [
+          {
+            "name": "extracurricularId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateExtracurricular" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success update extracurricular",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Extracurricular" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Extracurricular API"],
+        "summary": "Delete Extracurricular by Id",
+        "description": "Delete Extracurricular by Id",
+        "parameters": [
+          {
+            "name": "extracurricularId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success delete extracurricular",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/schedule-by-class/{classId}": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Schedule API"],
+        "summary": "Get Schedules by Class Id",
+        "description": "Get all schedules for a class",
+        "parameters": [
+          {
+            "name": "classId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get schedules by class",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Schedule" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schedule-by-teacher/{teacherId}": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Schedule API"],
+        "summary": "Get Schedules by Teacher Id",
+        "description": "Get all schedules for a teacher",
+        "parameters": [
+          {
+            "name": "teacherId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get schedules by teacher",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Schedule" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/membership-student/{studentId}": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Membership API"],
+        "summary": "Get Memberships by Student Id",
+        "description": "Get all extracurricular memberships for a student",
+        "parameters": [
+          {
+            "name": "studentId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get memberships by student",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Membership" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/tasks": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Task API"],
+        "summary": "List all Tasks",
+        "description": "List all Tasks",
+        "responses": {
+          "200": {
+            "description": "Success get all tasks",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Task" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/task": {
+      "post": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Task API"],
+        "summary": "Create new Task",
+        "description": "Create new Task",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateOrUpdateTask" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success create task",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Task" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/task/{taskId}": {
+      "put": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Task API"],
+        "summary": "Update Task by Id",
+        "description": "Update Task by Id",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateOrUpdateTask" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success update task",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Task" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Task API"],
+        "summary": "Delete Task by Id",
+        "description": "Delete Task by Id",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success delete task",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/attendancestudents": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Student Attendance API"],
+        "summary": "List all Student Attendances",
+        "description": "List all student attendance records",
+        "responses": {
+          "200": {
+            "description": "Success get all student attendances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/AttendanceStudent" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/attendancestudent": {
+      "post": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Student Attendance API"],
+        "summary": "Create Student Attendance",
+        "description": "Create a new student attendance record",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateAttendanceStudent" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success create student attendance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/AttendanceStudent" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/attendancestudent/studentId/{studentId}": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Student Attendance API"],
+        "summary": "Get Student Attendances by Student Id",
+        "description": "Get all attendance records for a student",
+        "parameters": [
+          {
+            "name": "studentId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get student attendance by student id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/AttendanceStudent" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/attendancestudent/date/{studentAttendanceDate}/className/{studentAttendanceClassName}": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Student Attendance API"],
+        "summary": "Get Student Attendances by Date and Class",
+        "description": "Get student attendance records filtered by date and class name",
+        "parameters": [
+          {
+            "name": "studentAttendanceDate",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "studentAttendanceClassName",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get student attendance by date and class",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/AttendanceStudent" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/attendancestudent/date/{studentAttendanceDate}/name/{studentAttendanceName}": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Student Attendance API"],
+        "summary": "Get Student Attendances by Date and Name",
+        "description": "Get student attendance records filtered by date and student name",
+        "parameters": [
+          {
+            "name": "studentAttendanceDate",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "studentAttendanceName",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get student attendance by date and name",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/AttendanceStudent" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/attendanceteachers": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Teacher Attendance API"],
+        "summary": "List all Teacher Attendances",
+        "description": "List all teacher attendance records",
+        "responses": {
+          "200": {
+            "description": "Success get all teacher attendances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/AttendanceTeacher" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/completionteachers": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Teacher Attendance API"],
+        "summary": "Get Teacher Attendance Completions",
+        "description": "Get teacher attendance completion summary",
+        "responses": {
+          "200": {
+            "description": "Success get teacher completions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/AttendanceTeacher" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/attendanceteacher/teacherid/{teacherId}": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Teacher Attendance API"],
+        "summary": "Get Teacher Attendances by Teacher Id",
+        "description": "Get all attendance records for a teacher",
+        "parameters": [
+          {
+            "name": "teacherId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get teacher attendance by teacher id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/AttendanceTeacher" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/attendanceteacher/teacherid/{teacherId}/current": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Teacher Attendance API"],
+        "summary": "Get Current Date Teacher Attendance",
+        "description": "Get teacher's attendance record for the current date",
+        "parameters": [
+          {
+            "name": "teacherId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get current attendance for teacher",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/AttendanceTeacher" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/attendanceteacher/date/{teacherAttendanceDate}": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Teacher Attendance API"],
+        "summary": "Get Teacher Attendances by Date",
+        "description": "Get all teacher attendance records for a specific date",
+        "parameters": [
+          {
+            "name": "teacherAttendanceDate",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get teacher attendance by date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/AttendanceTeacher" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/attendanceteacher": {
+      "post": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Teacher Attendance API"],
+        "summary": "Create Teacher Attendance (Check In)",
+        "description": "Create a new teacher attendance (check-in) record",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateAttendanceTeacher" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success create teacher attendance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/AttendanceTeacher" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/attendanceteacher/{teacherId}": {
+      "put": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Teacher Attendance API"],
+        "summary": "Update Teacher Attendance Check Out",
+        "description": "Update teacher attendance check-out time",
+        "parameters": [
+          {
+            "name": "teacherId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateAttendanceTeacher" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success update teacher check out",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/AttendanceTeacher" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/announcements": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Announcement API"],
+        "summary": "List all Announcements",
+        "description": "List all Announcements",
+        "responses": {
+          "200": {
+            "description": "Success get all announcements",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Announcement" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/announcements/global": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Announcement API"],
+        "summary": "List all Global Announcements",
+        "description": "List all global announcements",
+        "responses": {
+          "200": {
+            "description": "Success get global announcements",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Announcement" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/announcement-class-id/{classId}": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Announcement API"],
+        "summary": "Get Announcements by Class Id",
+        "description": "Get all announcements for a specific class",
+        "parameters": [
+          {
+            "name": "classId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get announcements by class",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Announcement" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/announcement": {
+      "post": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Announcement API"],
+        "summary": "Create new Announcement",
+        "description": "Create new Announcement",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateAnnouncement" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success create announcement",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Announcement" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/announcement/{announcementId}": {
+      "put": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Announcement API"],
+        "summary": "Update Announcement by Id",
+        "description": "Update Announcement by Id",
+        "parameters": [
+          {
+            "name": "announcementId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateAnnouncement" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success update announcement",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Announcement" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Announcement API"],
+        "summary": "Delete Announcement by Id",
+        "description": "Delete Announcement by Id",
+        "parameters": [
+          {
+            "name": "announcementId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success delete announcement",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "securitySchemes": {
+      "SMANDAAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "Authentication for SMANDA Backend API"
+      }
+    },
+    "schemas": {
+      "Subject": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "name": { "type": "string" }
+        }
+      },
+      "CreateOrUpdateSubject": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" }
+        }
+      },
+      "Teacher": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "name": { "type": "string" },
+          "nip": { "type": "string" },
+          "birth_date": { "type": "string", "format": "date-time" },
+          "email": { "type": "string" },
+          "gender": { "type": "number" },
+          "wali_kelas": { "type": "string", "nullable": true },
+          "picture": { "type": "string", "nullable": true },
+          "tugas_tambahan": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "CreateTeacher": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "nip": { "type": "string" },
+          "birth_date": { "type": "string", "format": "date-time" },
+          "email": { "type": "string" },
+          "gender": { "type": "number" },
+          "additional_tasks": { "type": "array", "items": { "type": "number" } }
+        }
+      },
+      "UpdateTeacher": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "nip": { "type": "string" },
+          "birth_date": { "type": "string", "format": "date-time" },
+          "gender": { "type": "number" },
+          "additional_tasks": { "type": "array", "items": { "type": "number" } }
+        }
+      },
+      "Class": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "name": { "type": "string" },
+          "sequence": { "type": "number" },
+          "degree": { "type": "number" },
+          "total_student": { "type": "number" },
+          "teacher_id": { "type": "number" },
+          "nama_wali_kelas": { "type": "string" },
+          "nip_wali_kelas": { "type": "string" }
+        }
+      },
+      "ClassWithScheduleRequest": {
+        "type": "object",
+        "properties": {
+          "classes": {
+            "type": "object",
+            "properties": {
+              "teacher_id": { "type": "number" },
+              "name": { "type": "string" },
+              "sequence": { "type": "number" },
+              "degree": { "type": "number" }
+            }
+          },
+          "schedules": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ScheduleCreateRequest" }
+          }
+        }
+      },
+      "UpdateClass": {
+        "type": "object",
+        "properties": {
+          "teacher_id": { "type": "number" },
+          "name": { "type": "string" },
+          "sequence": { "type": "number" },
+          "degree": { "type": "number" },
+          "schedules": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ScheduleCreateRequest" }
+          }
+        }
+      },
+      "Student": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "nisn": { "type": "string" },
+          "name": { "type": "string" },
+          "kelas_id": { "type": "number" },
+          "name_class": { "type": "string", "nullable": true },
+          "religion": { "type": "string" },
+          "address": { "type": "string" },
+          "mobile_num": { "type": "string" },
+          "gender": { "type": "number" },
+          "birth_date": { "type": "string", "format": "date-time" },
+          "list_ekskul": { "type": "array", "items": { "type": "string" } },
+          "email": { "type": "string" },
+          "is_register": { "type": "boolean" },
+          "is_admin": { "type": "boolean" },
+          "picture": { "type": "string", "nullable": true }
+        }
+      },
+      "CreateStudent": {
+        "type": "object",
+        "properties": {
+          "nisn": { "type": "string" },
+          "name": { "type": "string" },
+          "kelas_id": { "type": "number" },
+          "religion": { "type": "string" },
+          "address": { "type": "string" },
+          "mobile_num": { "type": "string" },
+          "email": { "type": "string" },
+          "gender": { "type": "number" },
+          "birth_date": { "type": "string", "format": "date-time" },
+          "is_register": { "type": "boolean" },
+          "is_admin": { "type": "boolean" },
+          "password": { "type": "string" },
+          "iv": { "type": "string" },
+          "picture": { "type": "string", "nullable": true }
+        }
+      },
+      "UpdateStudent": {
+        "type": "object",
+        "properties": {
+          "nisn": { "type": "string" },
+          "name": { "type": "string" },
+          "kelas_id": { "type": "number" },
+          "religion": { "type": "string" },
+          "address": { "type": "string" },
+          "mobile_num": { "type": "string" },
+          "gender": { "type": "number" },
+          "birth_date": { "type": "string", "format": "date-time" },
+          "picture": { "type": "string", "nullable": true },
+          "ekskul_id": { "type": "array", "items": { "type": "number" } }
+        }
+      },
+      "Extracurricular": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "picture": { "type": "string", "nullable": true },
+          "advisor": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/AdvisorResponse" }
+          },
+          "memberships": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Membership" }
+          }
+        }
+      },
+      "CreateExtracurricular": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "picture": { "type": "string", "nullable": true },
+          "advisor": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/AdvisorCreateRequest" }
+          },
+          "memberships": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/MembershipCreateRequest" }
+          }
+        }
+      },
+      "UpdateExtracurricular": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "picture": { "type": "string", "nullable": true },
+          "advisor": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/AdvisorCreateRequest" }
+          },
+          "memberships": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/MembershipCreateRequest" }
+          }
+        }
+      },
+      "AdvisorResponse": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "extracurricular_id": { "type": "number" },
+          "teacher_id": { "type": "number" },
+          "teacher_name": { "type": "string" },
+          "teacher_nip": { "type": "string" },
+          "teacher_birth_date": { "type": "string", "format": "date-time" },
+          "teacher_gender": { "type": "number" },
+          "status": { "type": "string" },
+          "picture": { "type": "string", "nullable": true }
+        }
+      },
+      "AdvisorCreateRequest": {
+        "type": "object",
+        "properties": {
+          "extracurricular_id": { "type": "number" },
+          "teacher_id": { "type": "number" },
+          "status": { "type": "string" }
+        }
+      },
+      "Membership": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "student_id": { "type": "number" },
+          "extracurricular_id": { "type": "number" },
+          "student_name": { "type": "string" },
+          "student_nisn": { "type": "string" },
+          "student_gender": { "type": "number" },
+          "student_religion": { "type": "string" },
+          "extracurricular_name": { "type": "string" },
+          "role": { "type": "string", "enum": ["Ketua", "Wakil Ketua", "Sekretaris", "Bendahara", "Anggota"] },
+          "picture": { "type": "string", "nullable": true }
+        }
+      },
+      "MembershipCreateRequest": {
+        "type": "object",
+        "properties": {
+          "student_id": { "type": "number" },
+          "extracurricular_id": { "type": "number" },
+          "role": { "type": "string", "enum": ["Ketua", "Wakil Ketua", "Sekretaris", "Bendahara", "Anggota"] }
+        }
+      },
+      "Schedule": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "teacher_id": { "type": "number" },
+          "subject_id": { "type": "number" },
+          "class_id": { "type": "number" },
+          "day": { "type": "string", "enum": ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"] },
+          "subject_name": { "type": "string" },
+          "teacher_name": { "type": "string" },
+          "class_name": { "type": "string" },
+          "start_time": { "type": "string" },
+          "end_time": { "type": "string" }
+        }
+      },
+      "ScheduleCreateRequest": {
+        "type": "object",
+        "properties": {
+          "teacher_id": { "type": "number" },
+          "subject_id": { "type": "number" },
+          "class_id": { "type": "number" },
+          "day": { "type": "string", "enum": ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"] },
+          "start_time": { "type": "string" },
+          "end_time": { "type": "string" }
+        }
+      },
+      "Task": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "name": { "type": "string" }
+        }
+      },
+      "CreateOrUpdateTask": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" }
+        }
+      },
+      "AttendanceStudent": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "student_id": { "type": "number" },
+          "nama_siswa": { "type": "string" },
+          "nisn_siswa": { "type": "string" },
+          "gender_siswa": { "type": "number" },
+          "tingkat": { "type": "number" },
+          "kelas_siswa": { "type": "string" },
+          "attendance_date": { "type": "string" },
+          "check_in": { "type": "string", "format": "date-time" },
+          "religion": { "type": "string" },
+          "status": { "type": "string" },
+          "picture": { "type": "string", "nullable": true }
+        }
+      },
+      "CreateAttendanceStudent": {
+        "type": "object",
+        "properties": {
+          "student_id": { "type": "number" },
+          "status": { "type": "string" }
+        }
+      },
+      "AttendanceTeacher": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "teacher_id": { "type": "number" },
+          "nama_guru": { "type": "string" },
+          "nip_guru": { "type": "string" },
+          "gender_guru": { "type": "number" },
+          "attendance_date": { "type": "string" },
+          "check_in": { "type": "string", "format": "date-time" },
+          "birth_date": { "type": "string", "format": "date-time" },
+          "check_out": { "type": "string", "format": "date-time", "nullable": true },
+          "status": { "type": "string" },
+          "picture": { "type": "string", "nullable": true }
+        }
+      },
+      "CreateAttendanceTeacher": {
+        "type": "object",
+        "properties": {
+          "teacher_id": { "type": "number" },
+          "status": { "type": "string" },
+          "check_out": { "type": "string", "format": "date-time", "nullable": true }
+        }
+      },
+      "UpdateAttendanceTeacher": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "teacher_id": { "type": "number" }
+        }
+      },
+      "Announcement": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "teacher_name": { "type": "string" },
+          "teacher_id": { "type": "number" },
+          "class_name": { "type": "string" },
+          "class_ids": { "type": "array", "items": { "type": "number" } },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "is_global": { "type": "boolean", "nullable": true },
+          "created_at": { "type": "string", "format": "date-time" }
+        }
+      },
+      "CreateAnnouncement": {
+        "type": "object",
+        "properties": {
+          "teacher_id": { "type": "number" },
+          "class_id": { "type": "array", "items": { "type": "number" } },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "is_global": { "type": "boolean", "nullable": true }
+        }
+      },
+      "UpdateAnnouncement": {
+        "type": "object",
+        "properties": {
+          "teacher_id": { "type": "number" },
+          "class_id": { "type": "array", "items": { "type": "number" } },
+          "is_global": { "type": "boolean", "nullable": true },
+          "title": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      }
+    }
+  }
+}
