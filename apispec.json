@@ -1973,6 +1973,42 @@
         }
       }
     },
+    "/announcement-teacher-id/{teacherId}": {
+      "get": {
+        "security": [{ "SMANDAAuth": [] }],
+        "tags": ["Announcement API"],
+        "summary": "Get Announcements by Teacher Id",
+        "description": "Get all announcements for a specific teacher",
+        "parameters": [
+          {
+            "name": "teacherId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "int" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get announcements by teacher",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "number" },
+                    "status": { "type": "string" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Announcement" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/announcement": {
       "post": {
         "security": [{ "SMANDAAuth": [] }],
